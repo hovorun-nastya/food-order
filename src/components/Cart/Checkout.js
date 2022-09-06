@@ -22,11 +22,16 @@ const Checkout = (props) => {
         resolver: zodResolver(FormSchema)
     });
 
-
     const onSubmit = (data) => {
-        console.log(data)
+        props.onConfirm({
+            name: data.name,
+            street: data.street,
+            postalCode: data.postalCode,
+            city: data.city
+        })
     };
     console.log(errors.name)
+
 
     return (
         <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -54,7 +59,6 @@ const Checkout = (props) => {
                 <input type='text' id='city'{...register("city")}/>
                 {errors.city && <p className={classes.error}>{errors.city.message}</p>}
             </div>
-            <pre>{JSON.stringify(watch(), null, 2)}</pre>
             <div className={classes.actions}>
                 <button type='button' onClick={props.onCancel}>
                     Cancel
